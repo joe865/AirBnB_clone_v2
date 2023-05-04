@@ -7,7 +7,7 @@ from datetime import datetime
 import os
 
 api.env.hosts = ['182897-web-01', '182897-web-02']
-api.env.hosts = ['100.26.164.88', '54.83.163.5']
+api.env.hosts = ['100.25.223.75', '18.214.89.241']
 api.env.user = 'ubuntu'
 api.env.key_filename = '~/.ssh/holberton'
 
