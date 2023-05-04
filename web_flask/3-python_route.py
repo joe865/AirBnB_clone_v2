@@ -1,35 +1,50 @@
 #!/usr/bin/python3
-"""Simple Flask web application"""
+"""Starts a Flask web application.
+
+The application listens on 0.0.0.0, port 5000.
+Routes:
+    /: Displays 'Hello HBNB!'.
+    /hbnb: Displays 'HBNB'.
+    /c/<text>: Displays 'C' followed by the value of <text>.
+    /python/(<text>): Displays 'Python' followed by the value of <text>.
+"""
 from flask import Flask
-app = Flask('web_flask')
-app.url_map.strict_slashes = False
+
+app = Flask(__name__)
 
 
-@app.route('/')
-def hello_route1():
-    """Return 'Hello HBNB!'"""
-    return 'Hello HBNB!'
+@app.route("/", strict_slashes=False)
+def hello_hbnb():
+    """Displays 'Hello HBNB!'."""
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb')
-def hello_route2():
-    """Return 'HBNB'"""
-    return 'HBNB'
+@app.route("/hbnb", strict_slashes=False)
+def hbnb():
+    """Displays 'HBNB'."""
+    return "HBNB"
 
 
-@app.route('/c/<text>')
-def hello_route3(text):
-    """Return 'C ' followed by text from html request"""
-    return 'C {}'.format(text.replace('_', ' '))
+@app.route("/c/<text>", strict_slashes=False)
+def c(text):
+    """Displays 'C' followed by the value of <text>.
+
+    Replaces any underscores in <text> with slashes.
+    """
+    text = text.replace("_", " ")
+    return "C {}".format(text)
 
 
-@app.route('/python/<text>')
-@app.route('/python/', defaults={'text': 'is cool'})
-def hello_route4(text):
-    """Return 'Python ' followed by text from html request with
-    default text 'is cool'"""
-    return 'Python {}'.format(text.replace('_', ' '))
+@app.route("/python", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def python(text="is cool"):
+    """Displays 'Python' followed by the value of <text>.
+
+    Replaces any underscores in <text> with slashes.
+    """
+    text = text.replace("_", " ")
+    return "Python {}".format(text)
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0")
